@@ -12,11 +12,17 @@
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/star_sign_id_action"
-            app:destination="@id/starSign" />
+            app:destination="@id/starSign"
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/starSign"
         android:name="com.mpd.pmdm.zodiaconavegacion.DetailFragment"
         android:label="Detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="starSignId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

@@ -10,4 +10,11 @@ Importante el id de las acciones (las flechas)
 Debe tener su id, y los atributos app:defaultNavHost a true y app:navGraph apuntando al grafo de navegación (@navigation/...)
 3. Tras ello, hay que llamar a la acción configurada (la transición de un fragmento a otro). Se puede hacer de varias formas. En esta aplicación la lógica de esto está en al ListFragment. 
 
-    
+# Habilitado Safe Args
+Una vez habilitado Safe args, además, gradle genera directamente una clase por cada destino de nevegación
+de nuestro grafo de navegación. En el propio grafo de navegación podemos indicar los argumentos a pasar en cada acción
+y su tipo. Esto facilita el paso de datos y evita errores de tipo 
+
+Más info:
+https://developer.android.com/guide/navigation/navigation-pass-data?hl=es-419
+

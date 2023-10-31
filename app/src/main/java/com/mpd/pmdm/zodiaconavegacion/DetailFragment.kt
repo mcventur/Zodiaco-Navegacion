@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 
 /**
  * A simple [Fragment] subclass.
@@ -22,7 +23,9 @@ class DetailFragment : Fragment() {
     private val dateRange: TextView?
         get() = view?.findViewById(R.id.date_range)
 
-
+    //Podemos usar el delegado navArgs porque hemos añadido las dependencias ktx (las de sólo kotlin)
+    //Más info sobre propiedades delegadas: https://www.develou.com/propiedades-delegadas-en-kotlin/
+    val args: DetailFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,8 +41,8 @@ class DetailFragment : Fragment() {
     Se tiene que hacer en onViewCreated porque en setStarSignData se accede a las vistas
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val starSignId = arguments?.getInt(STAR_SIGN_ID, 0) ?: 0
-        setStarSignData(starSignId)
+        //Tenemos todos lo argumentos disponibles en args
+        setStarSignData(args.starSignId)
     }
 
     /**
@@ -112,27 +115,5 @@ class DetailFragment : Fragment() {
                 Toast.makeText(context, getString(R.string.unknown_star_sign), Toast.LENGTH_LONG).show()
             }
         }
-    }
-    companion object {
-        private const val STAR_SIGN_ID = "STAR_SIGN_ID"
-
-        /*
-        Función pública y estática, que
-        toma como entrada una starSignId, crea una nueva instancia del
-        DetailFragment, y añade el starSignId en un nuevo Bundle
-        Se hace igual que con intent.extras, con pares clave/valor
-
-        Es un static factory method: un método estático de la clase que nos genera
-        instancias de la misma, como alternativa al uso de constructores. Es un constrcutor
-        más flexible, que hace lo que nos dé la gana. En este caso, recoger directamente el argumento
-         */
-        @JvmStatic
-        fun newInstance(starSignId: Int) =
-            DetailFragment().apply {
-                arguments = Bundle().apply {
-                    //Guardamos el id del signo del zodiaco
-                    putInt(STAR_SIGN_ID, starSignId)
-                }
-            }
     }
 }

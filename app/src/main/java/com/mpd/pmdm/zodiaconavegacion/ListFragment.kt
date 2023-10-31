@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 
 class ListFragment : Fragment() {
     override fun onCreateView(
@@ -38,14 +39,15 @@ class ListFragment : Fragment() {
 
         //Asociamos a cada TextView de Signo el propio fragment como onClickListener (porque lo implementamos)
         starSigns.forEach {
-            val fragmentBundle = Bundle()
+            // Ya no necesitamos el Bundle, al usar safeArgs
             //it = cada starSign de la lista
-            fragmentBundle.putInt(STAR_SIGN_ID, it.id)
-            //Asociamos a cada TextView signo un listener para el evento onClick
-            //que nos da ya preparada la clase Navigation
-            it.setOnClickListener(
-                Navigation.createNavigateOnClickListener(R.id.star_sign_id_action, fragmentBundle)
-            )
+            it.setOnClickListener{
+                //Con safeArgs, se ha creado una clase para los destinos de ListFragment
+                //Hemos definido prevismente el argumento seguro en el grafo de navegación
+                val action = ListFragmentDirections.starSignIdAction(starSignId = it.id )
+                view.findNavController().navigate(action)
+            }
+
         }
 
     }
